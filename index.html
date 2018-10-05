@@ -1,3 +1,10 @@
+<!-- Client ID
+2DwOoJsp_8BQuN0F2Y-Txg
+
+API Key
+rOr7KtEjGS34UJetzUkIhy4Y0Xn1gJ8nI60QETBP1xkh8JaFrJQZ1u1P6bbSgZWJQ9tM7CjgpsCELCTrMRygxF0kffkaR6nIeRdhgv8QYgoHNRHwKDFmUNkkJK23W3Yx -->
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,10 +26,33 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Instert restaurant row here -->
+        <!-- Insert restaurant row here -->
       </tbody>
     </table>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+    var restaurant = "Mcdonald's";
+    var queryURL = "https://api.yelp.com/v3/businesses/search=" + restaurant;
+
+    $.ajax({
+      url: queryURL,
+      Method: "GET"
+    }).then(function(response) {
+      var tBody = $("tbody");
+      var tRow = $("<tr>");
+      var titleTd = $("<td>").text(response.businesses);
+      var ratingTd = $("<td>").text(response.rating);
+      var categoriesTd = $("<td>").text(response.cataegories.alias);
+      tRow.append(titleTd, ratingTd, categoriesTd);
+      tBody.append(tRow);
+  
+    })
+  
+
+  
+  </script>
 
   
   
