@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>API Practice</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+
+</head>
+  <body>
+    <div class="container">
+      <h1>city Search</h1>
+  
+      <!-- We'll be dumping our JSON contents in here -->
+      <div id="city-view"></div>
+  
+      <!-- This form will be where users input data about the citys -->
+      <form id="city-form">
+        <label for="city-input">Search for a city</label>
+        <input type="text" id="city-input"><br>
+        
+  
+        <!-- This button will trigger our AJAX call -->
+        <input id="find-city" type="submit" value="city Search">
+      </form>
+
+      <div class="city"></div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+      <div class="temp"></div>
+  
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script type="text/javascript">
+        // This .on("click") function will trigger the AJAX Call
+        $("#find-city").on("click", function(event) {
+  
+          // event.preventDefault() can be used to prevent an event's default behavior.
+          // Here, it prevents the submit button from trying to submit a form when clicked
+          event.preventDefault();
+  
+          // Here we grab the text from the input box
+          var city = $("#city-input").val();
+
+          var APIKey = "166a433c57516f51dfab1f7edaed8413";
+
+// Here we are building the URL we need to query the database
+          var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
+            "q=" + city + "&units=imperial&appid=" + APIKey;
+  
+          // Write code between the dashes below to hit the queryURL with $ajax, then take the response data
+          // and display it in the div with an id of city-view
+  
+          // ------YOUR CODE GOES IN THESE DASHES. DO NOT MANUALLY EDIT THE HTML ABOVE.
+  
+          $.ajax({
+            url: queryURL,
+            method: "GET"
+          }).then(function(response) {
+            $("#city-view").text(JSON.stringify(response));
+
+            $(".city").html("<h1>" + response.name + " Weather Details</h1>");
+            $(".wind").text("Wind Speed: " + response.wind.speed);
+            $(".humidity").text("Humidity: " + response.main.humidity);
+            $(".temp").text("Temperature (F) " + response.main.temp);
+          });
+  
+          // -----------------------------------------------------------------------
+  
+        });
+      </script>
+    </div>
+  </body>
